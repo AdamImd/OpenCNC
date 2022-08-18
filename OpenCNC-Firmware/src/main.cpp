@@ -5,10 +5,10 @@ StepperDriver stepper_x;
 StepperDriver stepper_y;
 
 void setup() {
-    stepper_x = StepperDriver(22, 21, 23);
-    stepper_y = StepperDriver(19, 18, 20);
+    stepper_x = StepperDriver(21, 22, 23);
+    stepper_y = StepperDriver(18, 19, 20);
 }
 
 int main(){
-
+    
 }
