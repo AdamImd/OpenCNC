@@ -1,5 +1,6 @@
 #include "StepperDriver.h"
 #include "Arduino.h"
+#include <stdint.h>
 
 StepperDriver::StepperDriver(uint8_t enable, uint8_t direction, uint8_t step) {
     pin_enable = enable;
@@ -19,39 +20,41 @@ StepperDriver::StepperDriver(uint8_t enable, uint8_t direction, uint8_t step) {
     digitalWrite(pin_step, 0);
 }
 
-bool StepperDriver::set_enabled(bool enable){
-    bool tmp = enabled;
+uint8_t StepperDriver::set_enabled(uint8_t enable){
+    uint8_t tmp = enabled;
     enabled = enable;
     digitalWrite(pin_enable, enabled);
     delayMicroseconds(pulse_length_us);
     return tmp;
 }
 
-bool StepperDriver::get_enabled(){
+uint8_t StepperDriver::get_enabled(){
     return enabled;
 }
 
-bool StepperDriver::set_direction(bool dir){
-    bool tmp = step_direction;
+uint8_t StepperDriver::set_direction(uint8_t dir){
+    uint8_t tmp = step_direction;
     step_direction = dir;
     digitalWrite(pin_step, step_direction);
     delayMicroseconds(pulse_length_us);
     return tmp;
 }
 
-bool StepperDriver::get_direction(){
+uint8_t StepperDriver::get_direction(){
     return step_direction;
 }
 
-long StepperDriver::set_position(long pos){
+int32_t StepperDriver::set_position(int32_t pos){
+    int32_t tmp = position;
     position = pos;
+    return tmp;
 }
 
-long StepperDriver::get_position(){
+int32_t StepperDriver::get_position(){
     return position;
 }
 
-long StepperDriver::step(){
+int32_t StepperDriver::step(){
     digitalWrite(pin_step, 1);
     delayMicroseconds(pulse_length_us);
     digitalWrite(pin_step, 0);
@@ -59,7 +62,7 @@ long StepperDriver::step(){
     return (step_direction ? ++position : --position);
 }
 
-long StepperDriver::step(bool direction){
+int32_t StepperDriver::step(uint8_t direction){
     set_direction(direction);
     return step();
 }
