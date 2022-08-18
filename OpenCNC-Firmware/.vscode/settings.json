@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "stepperdriver.h": "c"
+        "stepperdriver.h": "c",
+        "arduino.h": "c"
     }
 }
