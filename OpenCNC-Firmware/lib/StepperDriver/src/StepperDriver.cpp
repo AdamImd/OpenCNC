@@ -10,6 +10,7 @@ StepperDriver::StepperDriver(uint8_t enable, uint8_t direction, uint8_t step) {
     position = 0L;
     step_direction = 0;
     enabled = 0;
+    step_direction_inverted = 0;
 
     pinMode(pin_enable, OUTPUT);
     pinMode(pin_direction, OUTPUT);
@@ -34,7 +35,7 @@ uint8_t StepperDriver::get_enabled(){
 
 uint8_t StepperDriver::set_direction(uint8_t dir){
     uint8_t tmp = step_direction;
-    step_direction = dir;
+    step_direction = (step_direction_inverted ?  !dir : dir); 
     digitalWrite(pin_direction, step_direction);
     delayNanoseconds(pulse_length_ns);
     return tmp;
@@ -42,6 +43,16 @@ uint8_t StepperDriver::set_direction(uint8_t dir){
 
 uint8_t StepperDriver::get_direction(){
     return step_direction;
+}
+
+uint8_t StepperDriver::set_direction_invert(uint8_t invert){
+    uint8_t tmp = step_direction_inverted;
+    step_direction_inverted = invert;
+    return tmp;
+}
+
+uint8_t StepperDriver::get_direction_invert(){
+    return step_direction_inverted;
 }
 
 int32_t StepperDriver::set_position(int32_t pos){
