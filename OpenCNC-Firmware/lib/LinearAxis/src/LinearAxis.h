@@ -10,6 +10,6 @@ class LinearAxis {
         StepperDriver* driver;
     public:
         LinearAxis(StepperDriver* axis);
-}
+};
 
 #endif
