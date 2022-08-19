@@ -41,6 +41,9 @@ void loop(){
       stepper_y->step(dir);
       delayMicroseconds(100);
   }
+
+  stepper_x->set_enabled(0);
+  stepper_y->set_enabled(0);
   digitalWrite(LED_BUILTIN, HIGH);
   delay(3000);
   digitalWrite(LED_BUILTIN, LOW);
