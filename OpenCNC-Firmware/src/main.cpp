@@ -1,8 +1,6 @@
 #include <Arduino.h>
 #include "StepperDriver.h"
 
-#include "TimerInterrupt_Generic.h"
-
 StepperDriver *stepper_x;
 StepperDriver *stepper_y;
 
