@@ -12,7 +12,7 @@ private:
     uint8_t step_direction;
     int32_t position;
     
-    const uint32_t pulse_length_us = 100;
+    const uint16_t pulse_length_ns = 1000;
 
 public:
     StepperDriver(uint8_t enable, uint8_t direction, uint8_t step);
