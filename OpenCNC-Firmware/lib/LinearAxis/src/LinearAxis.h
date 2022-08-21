@@ -13,7 +13,12 @@ class LinearAxis {
         uint8_t status;
         int32_t target;
         uint32_t steps_mm;
-        void callback();
+        static void callback_fun_0();
+        static void callback_fun_1();
+        static void callback_fun_2();
+        static void callback_fun_3();
+        static int8_t drivers_size;
+        static StepperDriver** drivers;
     public:
         LinearAxis(StepperDriver* axis, LimitSwitch* sw);
         uint8_t zero();

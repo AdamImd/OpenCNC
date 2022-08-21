@@ -1,8 +1,14 @@
 #include <Arduino.h>
 #include "StepperDriver.h"
+#include "LimitSwitch.h"
+#include "LinearAxis.h"
 
-StepperDriver *stepper_x;
-StepperDriver *stepper_y;
+StepperDriver* stepper_x;
+StepperDriver* stepper_y;
+
+LimitSwitch* limit_x;
+
+LinearAxis* linear_x;
 
 void setup() {
   Serial.begin(9600);
@@ -10,6 +16,10 @@ void setup() {
 
   stepper_x = new StepperDriver(21, 22, 23);
   stepper_y = new StepperDriver(18, 19, 20);
+
+  limit_x = new LimitSwitch(16);
+
+  linear_x = new LinearAxis(stepper_x, limit_x);
 
   stepper_x->set_enabled(1);
   stepper_y->set_enabled(1);
@@ -27,25 +37,6 @@ void setup() {
   Serial.println("Armed");
 }
 
-bool dir = 1;
 void loop(){
-  for(int i = 0; i<20000; i++){
-      stepper_x->step(dir);
-      stepper_y->step(dir);
-      delayMicroseconds(100);
-  }
-  dir = !dir;
-  for(int i = 0; i<20000; i++){
-      stepper_x->step(dir);
-      stepper_y->step(dir);
-      delayMicroseconds(100);
-  }
 
-  stepper_x->set_enabled(0);
-  stepper_y->set_enabled(0);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(3000);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(3000);
-  dir = !dir;
 }
