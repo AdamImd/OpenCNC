@@ -27,7 +27,7 @@ uint8_t LinearAxis::zero() {
 }
 
 uint8_t LinearAxis::move_config(int32_t target_pos, float speed) {
-    if (!driver->get_enabled()) return 0;
+    if (status == 2) return 0;
 
     target = target_pos;
     float step_time = speed * steps_mm;
@@ -67,6 +67,7 @@ uint8_t LinearAxis::move_complete(){
 }
 
 void LinearAxis::step(){
+    if (!driver->get_enabled()) return;
     if (status != 2) return;
     int32_t diff = target - driver->get_position();
     if (diff == 0){
