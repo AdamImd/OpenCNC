@@ -3,16 +3,17 @@
 #include "Arduino.h"
 #include <stdint.h>
 
-int8_t LinearAxis::drivers_size;
-StepperDriver** LinearAxis::drivers;
+int8_t LinearAxis::axis_size;
+LinearAxis** LinearAxis::axis_arr;
 
 LinearAxis::LinearAxis(StepperDriver* axis, LimitSwitch* sw) {
     driver = axis;
     limit = sw;
     status = 0;
     steps_mm = 1064;
-    drivers_size = 4;
-    drivers = (drivers) ? drivers : (StepperDriver**)malloc(sizeof(StepperDriver*) * drivers_size);
+    callback = -1;
+    axis_size = 4;
+    axis_arr = (axis_arr) ? axis_arr : (LinearAxis**)calloc(axis_size, sizeof(LinearAxis*));
 }
 
 uint8_t LinearAxis::zero() {
@@ -31,13 +32,14 @@ uint8_t LinearAxis::move_config(int32_t target_pos, float speed) {
     target = target_pos;
     float step_time = speed * steps_mm;
 
-    if (!drivers) return 0;
-    int8_t callback = -1;
-    for (int i = 0; i<drivers_size; i++)
-        if (!drivers[i])
-            callback = i;
-    if (callback < 1) return 0;
-    drivers[callback] = driver;
+    if (!axis_arr) return 0;
+    if (callback == -1){
+        for (int i = 0; i<axis_size; i++)
+            if (!axis_arr[i])
+                callback = i;
+        if (callback < 1) return 0;
+        axis_arr[callback] = this;
+    }
     void (*funct)();
     switch (callback) {
     case 0:
@@ -56,18 +58,38 @@ uint8_t LinearAxis::move_config(int32_t target_pos, float speed) {
     return 1;
 }
 
+uint8_t LinearAxis::move_begin(){
+    return (status != 1) ? status : status = 2;
+}
+
+uint8_t LinearAxis::move_complete(){
+    return status == 0;
+}
+
+void LinearAxis::step(){
+    if (status != 2) return;
+    int32_t diff = target - driver->get_position();
+    if (diff == 0){
+        status = 0;
+        timer.end();
+
+        return;
+    }
+    if (driver->get_direction() != (diff > 0))
+        driver->set_direction(diff > 0);
+    driver->step();
+}
+
+
 void LinearAxis::callback_fun_0() {
-    drivers[0]->step();
+    axis_arr[0]->step();
 }
-
 void LinearAxis::callback_fun_1() {
-    drivers[1]->step();
+    axis_arr[1]->step();
 }
-
 void LinearAxis::callback_fun_2() {
-    drivers[2]->step();
+    axis_arr[2]->step();
 }
-
 void LinearAxis::callback_fun_3() {
-    drivers[3]->step();
+    axis_arr[3]->step();
 }

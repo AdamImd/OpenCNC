@@ -35,6 +35,8 @@ void setup() {
     delay(500);
   }
   Serial.println("Armed");
+
+  linear_x ->zero();
 }
 
 void loop(){
