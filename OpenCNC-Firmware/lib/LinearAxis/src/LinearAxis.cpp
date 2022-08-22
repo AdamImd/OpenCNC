@@ -3,6 +3,9 @@
 #include "Arduino.h"
 #include <stdint.h>
 
+int8_t LinearAxis::drivers_size;
+StepperDriver** LinearAxis::drivers;
+
 LinearAxis::LinearAxis(StepperDriver* axis, LimitSwitch* sw) {
     driver = axis;
     limit = sw;
