@@ -11,6 +11,7 @@ class StepperDriver {
         uint8_t enabled;
         uint8_t step_direction_inverted;
         uint8_t step_direction;
+        uint8_t step_complete;
         int32_t position;
         
         const uint16_t pulse_length_ns = 1000;
@@ -21,6 +22,7 @@ class StepperDriver {
         uint8_t get_enabled();
         uint8_t set_direction(uint8_t dir);
         uint8_t get_direction();
+        uint8_t get_step_complete();
         uint8_t set_direction_invert(uint8_t invert);
         uint8_t get_direction_invert();
         int32_t set_position(int32_t pos);

@@ -26,11 +26,11 @@ uint8_t LinearAxis::zero() {
     return 1;
 }
 
-uint8_t LinearAxis::move_config(int32_t target_pos, float speed) {
+uint8_t LinearAxis::move_config(int32_t target_pos, float steps_per_second) {
     if (status == 2) return 0;
 
     target = target_pos;
-    float step_time = (1 / speed) * 1000000;
+    float step_time = (((1 / steps_per_second) * 1000000) /2);
 
     if (!axis_arr) return 0;
     if (callback == -1){
@@ -47,12 +47,12 @@ uint8_t LinearAxis::move_config(int32_t target_pos, float speed) {
     case 1:
         funct = callback_fun_1;
     case 2:
-        funct = callback_fun_2;
+        funct = callback_fun_2;        //uint32_t steps_mm;
     case 3:
         funct = callback_fun_3;
     }
     if (!timer.begin(funct, step_time))
-        return 0;
+        return 0;        //uint32_t steps_mm;
 
     status = 1; 
     return 1;
@@ -69,15 +69,17 @@ uint8_t LinearAxis::move_complete(){
 void LinearAxis::step(){
     if (!driver->get_enabled()) return;
     if (status != 2) return;
-    int32_t diff = target - driver->get_position();
-    if (diff == 0){
-        status = 0;
-        timer.end();
+    if (!driver->get_step_complete()) {
+        int32_t diff = target - driver->get_position();
+        if (diff == 0){
+            status = 0;
+            timer.end();
 
-        return;
+            return;
+        }
+        //if (driver->get_direction() == (diff > 0))
+            driver->set_direction((diff > 0));
     }
-    //if (driver->get_direction() == (diff > 0))
-        driver->set_direction((diff > 0));
     driver->step();
 }
 

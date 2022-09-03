@@ -12,7 +12,6 @@ class LinearAxis {
         LimitSwitch* limit;
         uint8_t status;
         int32_t target;
-        //uint32_t steps_mm;
         int8_t callback;
         void step();
         static void callback_fun_0();
@@ -24,7 +23,7 @@ class LinearAxis {
     public:
         LinearAxis(StepperDriver* axis, LimitSwitch* sw);
         uint8_t zero();
-        uint8_t move_config(int32_t target, float speed);
+        uint8_t move_config(int32_t target, float steps_per_second);
         uint8_t move_begin();
         uint8_t move_complete();
 };
