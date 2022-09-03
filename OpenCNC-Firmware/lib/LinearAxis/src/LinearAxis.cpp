@@ -10,7 +10,7 @@ LinearAxis::LinearAxis(StepperDriver* axis, LimitSwitch* sw) {
     driver = axis;
     limit = sw;
     status = 0;
-    steps_mm = 1064;
+    //steps_mm = 1064;
     callback = -1;
     axis_size = 4;
     axis_arr = (axis_arr) ? axis_arr : (LinearAxis**)calloc(axis_size, sizeof(LinearAxis*));
@@ -30,7 +30,7 @@ uint8_t LinearAxis::move_config(int32_t target_pos, float speed) {
     if (status == 2) return 0;
 
     target = target_pos;
-    float step_time = speed * steps_mm;
+    float step_time = (1 / speed) * 1000000;
 
     if (!axis_arr) return 0;
     if (callback == -1){
@@ -76,8 +76,8 @@ void LinearAxis::step(){
 
         return;
     }
-    if (driver->get_direction() != (diff > 0))
-        driver->set_direction(diff > 0);
+    //if (driver->get_direction() == (diff > 0))
+        driver->set_direction((diff > 0));
     driver->step();
 }
 

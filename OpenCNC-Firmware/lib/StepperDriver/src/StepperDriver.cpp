@@ -23,8 +23,8 @@ StepperDriver::StepperDriver(uint8_t enable, uint8_t direction, uint8_t step) {
 
 uint8_t StepperDriver::set_enabled(uint8_t enable){
     uint8_t tmp = enabled;
-    enabled = !enable;
-    digitalWrite(pin_enable, enabled);
+    enabled = enable;
+    digitalWrite(pin_enable, !enabled);
     delayNanoseconds(pulse_length_ns);
     return tmp;
 }
@@ -70,7 +70,7 @@ int32_t StepperDriver::step(){
     delayNanoseconds(pulse_length_ns);
     digitalWrite(pin_step, 0);
     delayNanoseconds(pulse_length_ns);
-    return (step_direction ? ++position : --position);
+    return (step_direction ? --position : ++position); // ?
 }
 
 int32_t StepperDriver::step(uint8_t direction){

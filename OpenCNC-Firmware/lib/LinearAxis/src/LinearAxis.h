@@ -12,7 +12,7 @@ class LinearAxis {
         LimitSwitch* limit;
         uint8_t status;
         int32_t target;
-        uint32_t steps_mm;
+        //uint32_t steps_mm;
         int8_t callback;
         void step();
         static void callback_fun_0();

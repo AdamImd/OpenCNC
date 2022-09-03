@@ -27,7 +27,7 @@ void setup() {
   stepper_y->set_direction_invert(1);
   
   Serial.println("Ready");
-  for(int i =0; i<5; i++){
+  for(int i = 0; i < 5; i++){
     Serial.println("("+ String(i) + ")");
     digitalWrite(LED_BUILTIN, HIGH);
     delay(500);
@@ -35,8 +35,24 @@ void setup() {
     delay(500);
   }
   Serial.println("Armed");
-
+  
   linear_x ->zero();
+  linear_x ->move_config(5000, 2000);
+  linear_x ->move_begin();
+  while(!linear_x ->move_complete());
+
+  delay(5000);
+
+  linear_x ->move_config(15000, 5000);
+  linear_x ->move_begin();
+  while(!linear_x ->move_complete());
+
+  delay(5000);
+
+  linear_x ->move_config(0, 4000);
+  linear_x ->move_begin();
+  while(!linear_x ->move_complete());
+
 }
 
 void loop(){
