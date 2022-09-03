@@ -37,22 +37,29 @@ void setup() {
   Serial.println("Armed");
   
   linear_x ->zero();
-  linear_x ->move_config(5000, 2000);
+  linear_x ->move_config(5000, 5000);
   linear_x ->move_begin();
   while(!linear_x ->move_complete());
 
-  delay(5000);
+  //delay(5000);
 
-  linear_x ->move_config(15000, 5000);
+  linear_x ->move_config(15000, 10000);
   linear_x ->move_begin();
   while(!linear_x ->move_complete());
 
-  delay(5000);
+  for (int i = 0; i<20; i++){
+    linear_x ->move_config(13000, 15000);
+    linear_x ->move_begin();
+    while(!linear_x ->move_complete());
 
-  linear_x ->move_config(0, 4000);
+    linear_x ->move_config(15000, 15000);
+    linear_x ->move_begin();
+    while(!linear_x ->move_complete());
+  }
+
+  linear_x ->move_config(0, 10000);
   linear_x ->move_begin();
   while(!linear_x ->move_complete());
-
 }
 
 void loop(){
