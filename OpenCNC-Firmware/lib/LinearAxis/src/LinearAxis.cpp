@@ -37,7 +37,7 @@ uint8_t LinearAxis::move_config(int32_t target_pos, float steps_per_second) {
         for (int i = 0; i<axis_size; i++)
             if (!axis_arr[i])
                 callback = i;
-        if (callback < 1) return 0;
+        if (callback == -1) return 0;
         axis_arr[callback] = this;
     }
     void (*funct)();
@@ -73,9 +73,7 @@ void LinearAxis::step(){
         int32_t diff = target - driver->get_position();
         if (diff == 0){
             status = 0;
-            timer.end();
-
-            return;
+            return timer.end();
         }
         //if (driver->get_direction() == (diff > 0))
             driver->set_direction((diff > 0));

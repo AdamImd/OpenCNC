@@ -42,28 +42,31 @@ void setup() {
   
   linear_x ->zero();
   linear_y ->zero();
-  linear_x ->move_config(5000, 5000);
-  linear_x ->move_begin();
-  while(!linear_x ->move_complete());
 
   //delay(5000);
 
-  linear_x ->move_config(15000, 10000);
-  linear_x ->move_begin();
-  while(!linear_x ->move_complete());
-
-  for (int i = 0; i<20; i++){
-    linear_x ->move_config(5000, 20000);
+  const int dist = 1200;
+  const int step = 10;
+  const int speed = 12;
+  for (int i = 0; i<dist; i++){
+    linear_x ->move_config(i*step, i*speed);
     linear_x ->move_begin();
+    linear_y ->move_config(i*step, i*speed);
+    linear_y ->move_begin();
     while(!linear_x ->move_complete());
-
-    linear_x ->move_config(15000, 20000);
+  }
+  for (int i = dist; i>=0; i--){
+    linear_x ->move_config(dist*step+(dist-i)*step, i*speed);
     linear_x ->move_begin();
+    linear_y ->move_config(dist*step+(dist-i)*step, i*speed);
+    linear_y ->move_begin();
     while(!linear_x ->move_complete());
   }
 
-  linear_x ->move_config(0, 10000);
+  linear_x ->move_config(0, 4000);
   linear_x ->move_begin();
+  linear_y ->move_config(0, 4000);
+  linear_y ->move_begin();
   while(!linear_x ->move_complete());
 }
 
