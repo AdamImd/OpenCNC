@@ -55,6 +55,8 @@ uint8_t LinearAxis::move_config(int32_t target_pos, float steps_per_second) {
     case 3:
         callback_fun = callback_fun_3;
         break;
+    default:
+        callback_fun = callback_fun_3;
     }
     
     if (!timer.begin(callback_fun, step_time))
