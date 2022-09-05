@@ -2,6 +2,8 @@
     "files.associations": {
         "stepperdriver.h": "c",
         "arduino.h": "c",
-        "cstdint": "cpp"
+        "cstdint": "cpp",
+        "string": "cpp",
+        "initializer_list": "cpp"
     }
 }

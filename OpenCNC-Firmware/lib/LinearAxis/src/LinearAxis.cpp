@@ -40,21 +40,28 @@ uint8_t LinearAxis::move_config(int32_t target_pos, float steps_per_second) {
         if (callback == -1) return 0;
         axis_arr[callback] = this;
     }
-    void (*funct)();
+
+    void (*callback_fun)();
     switch (callback) {
     case 0:
-        funct = callback_fun_0;
+        callback_fun = callback_fun_0;
+        break;
     case 1:
-        funct = callback_fun_1;
+        callback_fun = callback_fun_1;
+        break;
     case 2:
-        funct = callback_fun_2;        //uint32_t steps_mm;
+        callback_fun = callback_fun_2;
+        break;
     case 3:
-        funct = callback_fun_3;
+        callback_fun = callback_fun_3;
+        break;
     }
-    if (!timer.begin(funct, step_time))
-        return 0;        //uint32_t steps_mm;
+    
+    if (!timer.begin(callback_fun, step_time))
+        return 0;
 
     status = 1; 
+
     return 1;
 }
 
