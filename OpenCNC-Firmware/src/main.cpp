@@ -43,12 +43,18 @@ void setup() {
   
   linear_x ->zero();
   linear_y ->zero();
-  
-  linear_x ->move_config(20000, 15000);
+
+  linear_x ->move_config(10000, 5000);
   linear_x ->move_begin();
-  linear_y ->move_config(20000, 10000);
+  linear_y ->move_config(10000, 5000);
   linear_y ->move_begin();
   while(!linear_x ->move_complete() || !linear_y ->move_complete());
+  linear_x ->move_config(5000, 5000);
+  linear_x ->move_begin();
+  linear_y ->move_config(5000, 5000);
+  linear_y ->move_begin();
+  while(!linear_x ->move_complete() || !linear_y ->move_complete());
+  
   Serial.println("Done");
 }
 
