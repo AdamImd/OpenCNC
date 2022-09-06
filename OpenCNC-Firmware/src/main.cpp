@@ -2,6 +2,7 @@
 #include "StepperDriver.h"
 #include "LimitSwitch.h"
 #include "LinearAxis.h"
+#include "Marlin.h"
 
 StepperDriver* stepper_x;
 StepperDriver* stepper_y;
@@ -11,6 +12,8 @@ LimitSwitch* limit_y;
 
 LinearAxis* linear_x;
 LinearAxis* linear_y;
+
+MarlinDriver* driver;
 
 void setup() {
   Serial.begin(9600);
@@ -35,10 +38,12 @@ void setup() {
   linear_x = new LinearAxis(stepper_x, limit_x);
   linear_y = new LinearAxis(stepper_y, limit_y);
 
+  driver = new MarlinDriver();
+
   stepper_x->set_enabled(1);
   stepper_y->set_enabled(1);
   stepper_x->set_direction_invert(1);
-  stepper_y->set_direction_invert(1);
+  stepper_y->set_direction_invert(1); 
   
   
   linear_x ->zero();
