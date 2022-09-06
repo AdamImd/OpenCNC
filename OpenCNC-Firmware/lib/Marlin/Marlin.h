@@ -12,11 +12,10 @@ struct Command
 
 class MarlinDriver {
     private: 
-        Command* ring_bufer;
-        Command* ring_start;
-        Command* ring_end; 
+        Command** ring_bufer;
+        uint16_t ring_start;
+        uint16_t ring_end; 
         uint16_t ring_buffer_size;
-
         
     public:
         MarlinDriver();
