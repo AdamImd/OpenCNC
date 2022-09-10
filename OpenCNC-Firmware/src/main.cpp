@@ -33,12 +33,12 @@ void setup() {
   Serial.println("Armed");
 
   stepper_x = new StepperDriver(21, 22, 23);
-  stepper_y = new StepperDriver(18, 19, 20);
-  stepper_z = new StepperDriver(1, 1, 1);
+  stepper_y = new StepperDriver(15, 16, 17);
+  stepper_z = new StepperDriver(18, 19, 20);
 
-  limit_x = new LimitSwitch(16);
-  limit_y = new LimitSwitch(15);
-  limit_z = new LimitSwitch(1);
+  limit_x = new LimitSwitch(41);
+  limit_y = new LimitSwitch(40);
+  limit_z = new LimitSwitch(39);
 
   linear_x = new LinearAxis(stepper_x, limit_x);
   linear_y = new LinearAxis(stepper_y, limit_y);
