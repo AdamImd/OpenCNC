@@ -6,12 +6,15 @@
 
 StepperDriver* stepper_x;
 StepperDriver* stepper_y;
+StepperDriver* stepper_z;
 
 LimitSwitch* limit_x;
 LimitSwitch* limit_y;
+LimitSwitch* limit_z;
 
 LinearAxis* linear_x;
 LinearAxis* linear_y;
+LinearAxis* linear_z;
 
 MarlinDriver* driver;
 
@@ -31,19 +34,24 @@ void setup() {
 
   stepper_x = new StepperDriver(21, 22, 23);
   stepper_y = new StepperDriver(18, 19, 20);
+  stepper_z = new StepperDriver(1, 1, 1);
 
   limit_x = new LimitSwitch(16);
   limit_y = new LimitSwitch(15);
+  limit_z = new LimitSwitch(1);
 
   linear_x = new LinearAxis(stepper_x, limit_x);
   linear_y = new LinearAxis(stepper_y, limit_y);
+  linear_z = new LinearAxis(stepper_y, limit_y);
 
-  driver = new MarlinDriver();
+  //driver = new MarlinDriver();
 
   stepper_x->set_enabled(1);
   stepper_y->set_enabled(1);
+  stepper_z->set_enabled(1);
   stepper_x->set_direction_invert(1);
-  stepper_y->set_direction_invert(1); 
+  stepper_y->set_direction_invert(1);
+  stepper_z->set_direction_invert(1);
   
   
   linear_x ->zero();
