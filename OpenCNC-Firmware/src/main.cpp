@@ -42,32 +42,43 @@ void setup() {
 
   linear_x = new LinearAxis(stepper_x, limit_x);
   linear_y = new LinearAxis(stepper_y, limit_y);
-  linear_z = new LinearAxis(stepper_y, limit_y);
+  linear_z = new LinearAxis(stepper_z, limit_z);
 
   //driver = new MarlinDriver();
 
   stepper_x->set_enabled(1);
   stepper_y->set_enabled(1);
   stepper_z->set_enabled(1);
+
   stepper_x->set_direction_invert(1);
   stepper_y->set_direction_invert(1);
   stepper_z->set_direction_invert(1);
   
-  
   linear_x ->zero();
   linear_y ->zero();
-
+  
   linear_x ->move_config(10000, 5000);
   linear_x ->move_begin();
   linear_y ->move_config(10000, 5000);
   linear_y ->move_begin();
+  linear_z->move_config(10000, 30000);
+  linear_z->move_begin();
+  while(!linear_z ->move_complete());
   while(!linear_x ->move_complete() || !linear_y ->move_complete());
+
   linear_x ->move_config(5000, 5000);
   linear_x ->move_begin();
   linear_y ->move_config(5000, 5000);
   linear_y ->move_begin();
+  linear_z ->move_config(0, 10000);
+  linear_z ->move_begin();
+  while(!linear_z->move_complete());
   while(!linear_x ->move_complete() || !linear_y ->move_complete());
   
+  stepper_y->set_enabled(0);
+  stepper_x->set_enabled(0);
+  stepper_z->set_enabled(0);
+
   Serial.println("Done");
 }
 
