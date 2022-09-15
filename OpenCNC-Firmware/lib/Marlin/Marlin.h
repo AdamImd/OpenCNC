@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "LinearAxis.h"
-#include "GCodeParser.h"
+#include "GCodeReader.h"
 
 struct Command
 {
