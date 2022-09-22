@@ -6,7 +6,7 @@
 
 class SerialReader {
     private: 
-        
+        void* process();
     public:
         
 };
