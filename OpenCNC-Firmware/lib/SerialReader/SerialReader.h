@@ -6,8 +6,13 @@
 
 class SerialReader {
     private: 
-        void* process();
+
     public:
+        char* readBytes(char* buf, uint16_t size);
+        uint8_t isOpen();
+        void open();
+        void open(uint16_t baud);
+        void close();
         
 };
 

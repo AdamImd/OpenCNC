@@ -5,8 +5,10 @@
 
 class GCodeReader {
     public:
-        virtual void* process();
-        virtual bool isDone();
+        virtual char* readBytes(char* buf, uint16_t size);
+        virtual uint8_t isOpen();
+        virtual void open();
+        virtual void close();
 };
 
 #endif
