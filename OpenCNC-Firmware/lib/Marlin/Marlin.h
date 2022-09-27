@@ -17,10 +17,12 @@ class MarlinDriver {
         LinearAxis* x_axis;
         LinearAxis* y_axis;
         LinearAxis* z_axis;
-        Command** ring_bufer;
+        Command* ring_buffer;
         uint16_t ring_start;
         uint16_t ring_end; 
         uint16_t ring_buffer_size;
+
+        uint16_t state;
         
         void G4(uint32_t del); // Dwell
 

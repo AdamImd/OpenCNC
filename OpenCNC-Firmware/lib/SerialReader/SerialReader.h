@@ -4,15 +4,15 @@
 #include <stdint.h>
 #include "GCodeReader.h"
 
-class SerialReader {
+class SerialReader : public GCodeReader {
     private: 
 
     public:
-        char* readBytes(char* buf, uint16_t size);
-        uint8_t isOpen();
-        void open();
+        char* readBytes(char* buf, uint16_t size) override;
+        uint8_t isOpen() override;
+        void close() override;
+        void open() override;
         void open(uint16_t baud);
-        void close();
         
 };
 
