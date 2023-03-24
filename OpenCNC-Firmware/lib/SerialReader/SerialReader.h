@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "GCodeReader.h"
 
-class SerialReader : public GCodeReader {
+class SerialReader : public GCodeStream {
     private: 
 
     public:
