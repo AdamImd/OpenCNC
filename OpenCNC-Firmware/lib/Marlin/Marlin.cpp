@@ -15,10 +15,10 @@ MarlinDriver::MarlinDriver(LinearAxis* x, LinearAxis* y, LinearAxis* z) {
 bool MarlinDriver::load_stream(GCodeStream* stream){
     // TODO: this.stop();
     g_stream = stream;
-    return !stream->isOpen()
+    return !stream->isOpen();
 }
 
-bool MarlinDriver::run() {`
+bool MarlinDriver::run() {
     if(current_command >= 0){ // If there is an active command
         current_command = command_list[current_command].command->run() ? current_command : -1; // Run the command
     } else { // If there is no active command

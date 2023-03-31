@@ -2,14 +2,7 @@
 #define def_GCodeReader_H
 
 #include <stdint.h>
-
-class GCodeStream {
-    public:
-        virtual uint8_t isOpen();
-        virtual void open();
-        virtual void close();
-        virtual GCodeRawCommand* readCommand();
-};
+#include <Arduino.h>
 
 class Command {
     public:
@@ -28,6 +21,14 @@ struct GCodeCommandEnum {
     char g_type;
     uint16_t g_num;
     Command* command;
+};
+
+class GCodeStream {
+    public:
+        virtual uint8_t isOpen();
+        virtual void open();
+        virtual void close();
+        virtual GCodeRawCommand* readCommand();
 };
 
 GCodeRawCommand* string_to_GCodeRawCommand(const char* input_data){
